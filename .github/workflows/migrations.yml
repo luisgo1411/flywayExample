@@ -1,0 +1,19 @@
+name: Run Flyway Migrations
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  migrations:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run migrations
+      run: |
+        docker-compose up -d db
+        npx flyway migrate
